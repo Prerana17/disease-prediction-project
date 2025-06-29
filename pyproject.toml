@@ -13,4 +13,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["black", "isort", "pytest", "kagglehub"]
+dev = [
+    "black",
+    "isort",
+    "pytest",
+    "kagglehub"
+]
