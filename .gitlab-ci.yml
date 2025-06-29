@@ -74,11 +74,12 @@ deploy-results:
   stage: deploy
   script:
     - mkdir -p public/
-    - cp -r disease-analysis-cli/results/* public/
+    - mkdir -p disease-analysis-cli/results/
+    - cp -r disease-analysis-cli/results/* public/ || echo "No results to copy"
   artifacts:
     paths:
       - public/
   rules:
-    - if: $CI_COMMIT_BRANCH == "17-development_branch"
+    - if: $CI_COMMIT_BRANCH == "main"
   dependencies:
     - run-analysis
