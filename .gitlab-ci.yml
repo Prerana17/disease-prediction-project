@@ -22,64 +22,40 @@ stages:
   - run
   - deploy
 
-
-# LINTING STAGE
+before_script:
+  - python -m venv venv
+  - source venv/bin/activate
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
 
 codestyle:
   image: python:3.12
   stage: lint
-  before_script:
-    - pip install --upgrade pip
-    - pip install uv
-    - uv venv
-    - source ./.venv/bin/activate
-    - uv sync --group dev --active --frozen
   script:
-    - uv run black --check --diff .
-    - uv run isort --check --diff .
+    - black --check --diff .
+    - isort --check --diff .
   rules:
     - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
 
-
-# TESTING STAGE
-
-test-python-3.12:
+unit_tests:
   image: python:3.12
   stage: test
-  before_script:
-    - pip install --upgrade pip
-    - pip install uv
-    - uv venv
-    - source ./.venv/bin/activate
-    - uv sync --group dev --active --frozen
   script:
-    - uv run pytest tests/
+    - pytest tests/
   rules:
     - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
-
-
-# MAIN ANALYSIS EXECUTION
 
 disease-analysis:
   image: python:3.12
   stage: run
-  before_script:
-    - pip install --upgrade pip
-    - pip install uv
-    - uv venv
-    - source ./.venv/bin/activate
-    - uv sync --group dev --active --frozen
   script:
-    - uv run python src/data_pipeline.py
-    - uv run python src/ml_model.py
+    - python src/data_pipeline.py
+    - python src/ml_model.py
   rules:
     - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
   artifacts:
     paths:
       - results/
-
-
-# DEPLOY REPORTS / PLOTS TO PAGES
 
 pages:
   stage: deploy
