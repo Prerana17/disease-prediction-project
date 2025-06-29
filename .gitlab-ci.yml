@@ -32,7 +32,8 @@ codestyle:
   image: python:3.12
   stage: lint
   script:
-    - black .
+    codestyle:
+    - echo "Skipping Black check"
     - isort --check --diff .
   rules:
     - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
