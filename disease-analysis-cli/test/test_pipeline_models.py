@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import sys
+import os
 import pytest
 import pandas as pd
 from sklearn.model_selection import train_test_split
+
+# ✅ Ensure src is in path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+
 from ml_models import (
     encode_non_numerical,
     train_test_split_and_scale,
