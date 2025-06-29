@@ -60,7 +60,7 @@ run-analysis:
     - pip install --root-user-action=ignore -r requirements.txt
   script:
     - python disease-analysis-cli/src/eda.py
-    - echo "<html><body><h1>Analysis Complete</h1><p>See generated results in results folder.</p></body></html>" > disease-analysis-cli/results/index.html
+    - echo "Results are saved"
   artifacts:
     paths:
       - disease-analysis-cli/results/
