@@ -19,6 +19,7 @@
 stages:
   - setup
   - test
+  - codestyle
   - run
   - deploy
 
@@ -34,6 +35,7 @@ install:
       - .venv/
     expire_in: 1 hour
 
+# Testing stage
 test-job:
   image: python:3.12
   stage: test
@@ -42,6 +44,27 @@ test-job:
     - export PYTHONPATH="$PYTHONPATH:$CI_PROJECT_DIR/disease-analysis-cli/src"
   script:
     - pytest disease-analysis-cli/test/
+
+# Linting stage
+codestyle:
+  image: python:3.12
+  stage: test
+  before_script:
+    - pip install --upgrade pip
+    - pip install uv black isort
+  script:
+    # If pyproject.toml exists, use uv sync; else continue silently
+    - |
+      if [ -f pyproject.toml ]; then
+        uv venv
+        source .venv/bin/activate
+        uv sync || true
+      fi
+    # Auto-fix formatting issues
+    - black . || true
+    - isort . || true
+  rules:
+    - if: $CI_COMMIT_BRANCH == "development"
 
 # Run basic unit tests using pytest
 unit-tests:
