@@ -13,38 +13,38 @@ REQUIREMENTS = requirements.txt
 
 # === COMMANDS ===
 
-# ✅ Set up virtual environment and install dependencies
+# Set up virtual environment and install dependencies
 setup:
 	$(PYTHON) -m venv $(VENV)
 	$(VENV)/Scripts/activate && $(PIP) install --upgrade pip && $(PIP) install -r $(REQUIREMENTS)
 
-# ✅ Run unit tests with verbose output
+# Run unit tests with verbose output
 test:
 	$(VENV)/Scripts/activate && pytest $(TEST_FILE) -v
 
-# ✅ Format code using Black
+# Format code using Black
 format:
 	$(VENV)/Scripts/activate && black $(SRC_DIR)
 
-# ✅ Run ML pipeline directly (skips CLI)
+# Run ML pipeline directly (skips CLI)
 run-model:
 	$(VENV)/Scripts/activate && $(PYTHON) $(SRC_DIR)/ml_models.py
 
-# ✅ Run EDA pipeline directly
+# Run EDA pipeline directly
 run-eda:
 	$(VENV)/Scripts/activate && $(PYTHON) $(SRC_DIR)/eda.py
 
-# ✅ Run pipeline via CLI interface
+# Run pipeline via CLI interface
 cli:
 	$(VENV)/Scripts/activate && $(PYTHON) -m cli $(CMD)
 
-# ✅ Clean Python cache and compiled files
+# Clean Python cache and compiled files
 clean:
 	del /S /Q *.pyc
 	del /S /Q *.pyo
 	del /S /Q *__pycache__*
 
-# ✅ Freeze current env to requirements.txt
+# Freeze current env to requirements.txt
 freeze:
 	$(VENV)/Scripts/activate && pip freeze > $(REQUIREMENTS)
 
