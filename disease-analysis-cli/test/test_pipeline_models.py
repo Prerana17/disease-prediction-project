@@ -3,7 +3,7 @@
 import pytest
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from ml_models import (
+from ml_model import (
     encode_non_numerical,
     train_test_split_and_scale,
     get_model_config,
