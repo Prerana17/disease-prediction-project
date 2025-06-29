@@ -32,7 +32,6 @@ codestyle:
   image: python:3.12
   stage: lint
   script:
-    codestyle:
     - echo "Skipping Black check"
     - isort --check --diff .
   rules:
