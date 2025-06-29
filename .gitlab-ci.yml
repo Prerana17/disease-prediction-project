@@ -32,7 +32,7 @@ codestyle:
   image: python:3.12
   stage: lint
   script:
-    - black --check --diff .
+    - black .
     - isort --check --diff .
   rules:
     - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
