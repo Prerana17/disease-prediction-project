@@ -20,6 +20,7 @@ stages:
   - setup
   - test
   - run
+  - deploy
 
 # Setup Python environment and install dependencies
 install:
@@ -67,4 +68,17 @@ run-analysis:
   rules:
     - if: $CI_COMMIT_BRANCH == "17-development_branch"
 
-
+# results analysis
+deploy-results:
+  image: python:3.12
+  stage: deploy
+  script:
+    - mkdir -p public/
+    - cp -r disease-analysis-cli/results/* public/
+  artifacts:
+    paths:
+      - public/
+  rules:
+    - if: $CI_COMMIT_BRANCH == "17-development_branch"
+  dependencies:
+    - run-analysis
