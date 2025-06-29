@@ -19,6 +19,7 @@
 stages:
   - setup
   - test
+  - run
 
 # Setup Python environment and install dependencies
 install:
@@ -51,6 +52,19 @@ unit-tests:
   rules:
     - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
 
-
+# adding test cases to run the code
+run-analysis:
+  image: python:3.12
+  stage: run
+  before_script:
+    - pip install --root-user-action=ignore -r requirements.txt
+  script:
+    - python disease-analysis-cli/src/eda.py
+    - echo "<html><body><h1>Analysis Complete</h1><p>See generated results in results folder.</p></body></html>" > disease-analysis-cli/results/index.html
+  artifacts:
+    paths:
+      - disease-analysis-cli/results/
+  rules:
+    - if: $CI_COMMIT_BRANCH == "17-development_branch"
 
 
