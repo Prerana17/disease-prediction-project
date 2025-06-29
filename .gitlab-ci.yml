@@ -38,7 +38,7 @@ codestyle:
     - uv run black --check --diff .
     - uv run isort --check --diff .
   rules:
-    - if: '$CI_COMMIT_BRANCH == "development_branch"'
+    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
 
 
 # TESTING STAGE
@@ -55,7 +55,7 @@ test-python-3.12:
   script:
     - uv run pytest tests/
   rules:
-    - if: '$CI_COMMIT_BRANCH == "development_branch"'
+    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
 
 
 # MAIN ANALYSIS EXECUTION
@@ -73,7 +73,7 @@ disease-analysis:
     - uv run python src/data_pipeline.py
     - uv run python src/ml_model.py
   rules:
-    - if: '$CI_COMMIT_BRANCH == "development_branch"'
+    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
   artifacts:
     paths:
       - results/
@@ -87,7 +87,7 @@ pages:
     - mkdir -p public/
     - cp results/* public/
   rules:
-    - if: '$CI_COMMIT_BRANCH == "development_branch"'
+    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
   artifacts:
     paths:
       - public/
