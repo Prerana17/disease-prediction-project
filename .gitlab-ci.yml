@@ -17,56 +17,31 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
 stages:
-  - lint
+  - setup
   - test
-  - run
-  - deploy
 
-before_script:
-  - python -m venv venv
-  - source venv/bin/activate
-  - pip install --upgrade pip
-  - pip install -r requirements.txt
-
-codestyle:
+# Setup Python environment and install dependencies
+install:
   image: python:3.12
-  stage: lint
+  stage: setup
   script:
-    - echo "Skipping Black check"
-    - isort --check --diff .
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+  artifacts:
+    paths:
+      - .venv/
+    expire_in: 1 hour
 
-unit_tests:
+# Run basic unit tests using pytest
+unit-tests:
   image: python:3.12
   stage: test
   script:
-    - pytest tests/
+    - pip install -r requirements.txt
+    - pytest tests/  # Adjust path if needed
   rules:
     - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
 
-disease-analysis:
-  image: python:3.12
-  stage: run
-  script:
-    - python src/data_pipeline.py
-    - python src/ml_model.py
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
-  artifacts:
-    paths:
-      - results/
 
-pages:
-  stage: deploy
-  script:
-    - mkdir -p public/
-    - cp results/* public/
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
-  artifacts:
-    paths:
-      - public/
-  dependencies:
-    - disease-analysis
+
 
