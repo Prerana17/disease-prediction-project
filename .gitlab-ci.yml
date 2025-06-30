@@ -45,6 +45,17 @@ test-job:
   script:
     - pytest disease-analysis-cli/test/
 
+streamlit-app:
+  stage: run
+  image: python:3.12
+  before_script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+  script:
+    - streamlit run disease-analysis-cli/src/app.py --server.headless true --server.port 8501
+  rules:
+    - if: $CI_COMMIT_BRANCH == "17-development_branch"'
+
 # Linting stage
 codestyle:
   image: python:3.12
@@ -64,7 +75,7 @@ codestyle:
     - black . || true
     - isort . || true
   rules:
-    - if: $CI_COMMIT_BRANCH == "development"
+    - if: $CI_COMMIT_BRANCH == "17-development_branch"
 
 # Run basic unit tests using pytest
 unit-tests:
@@ -103,6 +114,6 @@ deploy-results:
     paths:
       - public/
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "17-development_branch"
   dependencies:
     - run-analysis
