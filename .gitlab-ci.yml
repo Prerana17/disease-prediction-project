@@ -95,10 +95,12 @@ streamlit-app:
   stage: run
   image: python:3.12
   before_script:
-    - pip install --upgrade pip
-    - pip install -r requirements.txt
+    - pip install --upgrade pip --root-user-action=ignore
+    - pip install --root-user-action=ignore -r requirements.txt
   script:
-    - streamlit run disease-analysis-cli/src/app.py --server.headless true --server.port 8501
+    - streamlit run disease-analysis-cli/src/app.py --server.headless true --server.port 8501 &
+    - sleep 15 && echo "Streamlit launched successfully"
+    - pkill streamlit
   rules:
     - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
 
