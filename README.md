@@ -81,14 +81,13 @@ Dataset:
 
 ### Correlation Heatmap
 
-
-<img src="https://codebase.helmholtz.cloud/tud-rse-pojects-2025/group-3/-/blob/216ade1575bee0606a042a005701e64012151232/disease-analysis-cli/results/correlation_heatmap.png" alt="Correlation Heatmap" width="400" />
+<img src="disease-analysis-cli/results/correlation_heatmap.png" alt="Correlation Heatmap" width="400" />
 
 The heatmap shows how features like **Fever**, **Blood Pressure**, and **Fatigue** correlate with the outcome variable.
 
 ### Age Distribution by Symptom
 
-<img src="https://codebase.helmholtz.cloud/tud-rse-pojects-2025/group-3/-/blob/216ade1575bee0606a042a005701e64012151232/disease-analysis-cli/results/age_violin_distribution.png" alt="Violin Plot" width="400" />
+<img src="disease-analysis-cli/results/age_violin_distribution.png" alt="Violin Plot" width="400" />
 
 Violin plots show age trends across symptoms and patient profiles. Notably, patients with severe symptoms skew older.
 
