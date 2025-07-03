@@ -1,0 +1,124 @@
+# This file is a template, and might need editing before it works on your project.
+# This is a sample GitLab CI/CD configuration file that should run without any modifications.
+# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
+# it uses echo commands to simulate the pipeline execution.
+#
+# A pipeline is composed of independent jobs that run scripts, grouped into stages.
+# Stages run in sequential order, but jobs within stages run in parallel.
+#
+# For more information, see: https://docs.gitlab.com/ee/ci/yaml/#stages
+#
+# You can copy and paste this template into a new `.gitlab-ci.yml` file.
+# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
+#
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/development/cicd/templates/
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+
+stages:
+  - setup
+  - test
+  - codestyle
+  - run
+  - deploy
+
+# Setup Python environment and install dependencies
+install:
+  image: python:3.12
+  stage: setup
+  script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+  artifacts:
+    paths:
+      - .venv/
+    expire_in: 1 hour
+
+# Testing stage
+test-job:
+  image: python:3.12
+  stage: test
+  before_script:
+    - pip install --root-user-action=ignore -r requirements.txt
+    - export PYTHONPATH="$PYTHONPATH:$CI_PROJECT_DIR/disease-analysis-cli/src"
+  script:
+    - pytest disease-analysis-cli/test/
+
+# Linting stage
+codestyle:
+  image: python:3.12
+  stage: test
+  before_script:
+    - pip install --upgrade pip
+    - pip install uv black isort
+  script:
+    # If pyproject.toml exists, use uv sync; else continue silently
+    - |
+      if [ -f pyproject.toml ]; then
+        uv venv
+        source .venv/bin/activate
+        uv sync || true
+      fi
+    # Auto-fix formatting issues
+    - black . || true
+    - isort . || true
+  rules:
+    - if: $CI_COMMIT_BRANCH == "17-development_branch"
+
+# Run basic unit tests using pytest
+unit-tests:
+  image: python:3.12
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - pytest disease-analysis-cli/test/  
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
+
+# adding test cases to run the code
+run-analysis:
+  image: python:3.12
+  stage: run
+  before_script:
+    - pip install --root-user-action=ignore -r requirements.txt
+  script:
+    - python disease-analysis-cli/src/eda.py
+    - echo "Results are saved"
+  artifacts:
+    paths:
+      - disease-analysis-cli/results/
+  rules:
+    - if: $CI_COMMIT_BRANCH == "17-development_branch"
+
+streamlit-app:
+  stage: run
+  image: python:3.12
+  before_script:
+    - pip install --upgrade pip --root-user-action=ignore
+    - pip install --root-user-action=ignore -r requirements.txt
+  script:
+    - streamlit run disease-analysis-cli/src/app.py --server.headless true --server.port 8501 &
+    - sleep 15 && echo "Streamlit launched successfully"
+    - pkill streamlit
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
+
+
+# results analysis
+deploy-results:
+  image: python:3.12
+  stage: deploy
+  script:
+    - mkdir -p public/
+    - mkdir -p disease-analysis-cli/results/
+    - cp -r disease-analysis-cli/results/* public/ || echo "No results to copy"
+  artifacts:
+    paths:
+      - public/
+  rules:
+    - if: $CI_COMMIT_BRANCH == "17-development_branch"
+  dependencies:
+    - run-analysis
+
+
