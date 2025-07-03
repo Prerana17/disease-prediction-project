@@ -8,7 +8,7 @@ PIP = pip
 VENV = venv
 SRC_DIR = disease_predictor/src
 CLI = $(SRC_DIR)/cli.py
-TEST_FILE = $(SRC_DIR)/test_pipeline_models.py
+TEST_FILE = test/test_pipeline_models.py
 REQUIREMENTS = requirements.txt
 
 # === COMMANDS ===
