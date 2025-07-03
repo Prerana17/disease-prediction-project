@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it as below."
+title: "Disease Symptom Analysis CLI Pipeline"
+authors:
+  - family-names: Chandratre
+    given-names: Prerana
+    affiliation: TU Dresden
+  - family-names: Roy
+    given-names: Biswajyoti
+    affiliation: TU Dresden
+date-released: 2025-07-01
+version: "1.0.0"
+license: CC0-1.0
+doi: 10.5281/zenodo.1234567 //Need to be updated
+repository-code: https://codebase.helmholtz.cloud/tud-rse-projects-2025/group-3/disease-analysis-cli
+keywords:
+  - disease analysis
+  - machine learning
+  - CLI pipeline
+  - Continuous integration/continuous deployment
+  - feature engineering
+  - data preprocessing
+  - exploratory data analysis
+  - model evaluation
+abstract: >
+  This project presents a modular command-line interface (CLI) pipeline for analyzing disease symptoms using patient profile data.
+  The pipeline covers end-to-end stages of a machine learning workflow, including data loading, preprocessing, and exploratory data analysis (EDA),
+  feature engineering, model training with hyperparameter tuning, and evaluation using performance metrics such as AUC, MCC, sensitivity, and specificity.
+
+  The repository features a fully automated CI/CD pipeline using GitLab CI to ensure reproducibility, code linting, unit testing, and deployment.
+  Results, artifacts, and visualizations are automatically generated and stored. The project is maintained as part of the Research Software Engineering Lab
+  at TU Dresden and adheres to best practices in research software development, version control, and team collaboration.

@@ -1,0 +1,21 @@
+
+[project]
+name = "disease-analysis"
+version = "0.1.0"
+description = "Disease Symptom and Patient Profile Analysis"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "seaborn",
+    "scikit-learn"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "pytest",
+    "kagglehub"
+]
