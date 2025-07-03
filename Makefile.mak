@@ -1,53 +1,75 @@
 # Makefile for Disease Predictor Project
-# --------------------------------------
+
 # This file automates environment setup, testing, formatting, CLI interaction, and more.
 
-# === VARIABLES ===
-PYTHON = python
-PIP = pip
-VENV = venv
-SRC_DIR = disease_predictor/src
-CLI = $(SRC_DIR)/cli.py
-TEST_FILE = test/test_pipeline_models.py
-REQUIREMENTS = requirements.txt
+# --- Variables ---
+PYTHON := python
+PIP := pip
+VENV := venv
+SRC_DIR := disease-analysis-cli/src
+RESULTS_DIR := disease-analysis-cli/results
+TEST_DIR := disease-analysis-cli/test
+APP_FILE := $(SRC_DIR)/app.py
+EDA_FILE := $(SRC_DIR)/eda.py
+ML_FILE := $(SRC_DIR)/ml_models.py
+REQUIREMENTS := requirements.txt
 
-# === COMMANDS ===
+# Platform-specific VENV Scripts path
+ACTIVATE := $(VENV)/Scripts/activate
 
-# Set up virtual environment and install dependencies
+# --- Default target ---
+all: help
+
+# --- Help Menu ---
+help:
+	@echo "Usage: make <target>"
+	@echo ""
+	@echo "Targets:"
+	@echo "  setup          Create virtual environment and install dependencies"
+	@echo "  format         Format code with black and isort"
+	@echo "  lint           Lint code using flake8 (optional)"
+	@echo "  test           Run pytest unit tests"
+	@echo "  eda            Run EDA analysis and save plots"
+	@echo "  model          Run machine learning training and evaluation"
+	@echo "  streamlit      Launch Streamlit dashboard"
+	@echo "  clean          Remove __pycache__, *.pyc, *.pyo and results"
+	@echo ""
+
+# --- Create virtualenv and install dependencies ---
 setup:
 	$(PYTHON) -m venv $(VENV)
-	$(VENV)/Scripts/activate && $(PIP) install --upgrade pip && $(PIP) install -r $(REQUIREMENTS)
+	$(ACTIVATE) && $(PIP) install --upgrade pip && $(PIP) install -r $(REQUIREMENTS)
 
-# Run unit tests with verbose output
-test:
-	$(VENV)/Scripts/activate && pytest $(TEST_FILE) -v
-
-# Format code using Black
+# --- Format Code ---
 format:
-	$(VENV)/Scripts/activate && black $(SRC_DIR)
+	$(ACTIVATE) && black $(SRC_DIR) && isort $(SRC_DIR)
 
-# Run ML pipeline directly (skips CLI)
-run-model:
-	$(VENV)/Scripts/activate && $(PYTHON) $(SRC_DIR)/ml_models.py
+# --- Lint Code  ---
+lint:
+	$(ACTIVATE) && flake8 $(SRC_DIR)
 
-# Run EDA pipeline directly
-run-eda:
-	$(VENV)/Scripts/activate && $(PYTHON) $(SRC_DIR)/eda.py
+# --- Run Pytest ---
+test:
+	$(ACTIVATE) && pytest $(TEST_DIR) -v
 
-# Run pipeline via CLI interface
-cli:
-	$(VENV)/Scripts/activate && $(PYTHON) -m cli $(CMD)
+# --- Run EDA analysis ---
+eda:
+	$(ACTIVATE) && $(PYTHON) $(EDA_FILE)
 
-# Clean Python cache and compiled files
+# --- Run ML Model Training ---
+model:
+	$(ACTIVATE) && $(PYTHON) $(ML_FILE)
+
+# --- Launch Streamlit Dashboard ---
+streamlit:
+	$(ACTIVATE) && streamlit run $(APP_FILE)
+
+# --- Clean build artifacts ---
 clean:
-	del /S /Q *.pyc
-	del /S /Q *.pyo
-	del /S /Q *__pycache__*
+	find . -type d -name "__pycache__" -exec rm -r {} +
+	find . -type f -name "*.pyc" -delete
+	find . -type f -name "*.pyo" -delete
+	rm -rf $(RESULTS_DIR) || true
 
-# Freeze current env to requirements.txt
-freeze:
-	$(VENV)/Scripts/activate && pip freeze > $(REQUIREMENTS)
+.PHONY: all help setup format lint test eda model streamlit clean
 
-# === Example CLI usage ===
-# make cli CMD=eda       → runs EDA pipeline
-# make cli CMD=train     → runs model training pipeline
