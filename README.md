@@ -195,6 +195,7 @@ uv run black --check --diff src/
 
 - Prerana Chandratre  
 - Biswajyoti Roy
+- Anjali Sharma
 
 ---
 
