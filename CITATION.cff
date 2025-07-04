@@ -8,6 +8,9 @@ authors:
   - family-names: Roy
     given-names: Biswajyoti
     affiliation: TU Dresden
+  - family-names: Sharma
+    given-names: Anjali
+    affiliation: TU Dresden
 date-released: 2025-07-01
 version: "1.0.0"
 license: CC0-1.0
