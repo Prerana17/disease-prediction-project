@@ -11,10 +11,11 @@ authors:
   - family-names: Sharma
     given-names: Anjali
     affiliation: TU Dresden
-date-released: 2025-07-01
-version: "1.0.0"
+date-released: 2025-07-04
+version: "0.1.0"
 license: CC0-1.0
-doi: 10.5281/zenodo.1234567 //Need to be updated
+doi: 10.5072/zenodo.279783
+  Citation: https://doi.org/10.5072/zenodo.279783
 repository-code: https://codebase.helmholtz.cloud/tud-rse-projects-2025/group-3/disease-analysis-cli
 keywords:
   - disease analysis
