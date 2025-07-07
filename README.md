@@ -205,8 +205,6 @@ Please see [LICENSE.md](LICENSE.md) for license information.
 
 ---
 
----
-
 ## Publications
 
 Please checkout our publications on:
