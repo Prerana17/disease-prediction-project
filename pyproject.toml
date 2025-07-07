@@ -2,8 +2,20 @@
 [project]
 name = "disease-analysis"
 version = "0.1.0"
+authors = [
+  { name="Chandratre Prerana", email="cprerana17@gmail.com" 
+    name="Sharma Anjali"
+    name="Roy Biswajyoti" },
+]
 description = "Disease Symptom and Patient Profile Analysis"
+readme = "README.md"
 requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
 dependencies = [
     "pandas",
     "numpy",
@@ -19,3 +31,7 @@ dev = [
     "pytest",
     "kagglehub"
 ]
+
+[project.urls]
+Homepage = "https://codebase.helmholtz.cloud/tud-rse-pojects-2025/group-3"
+Issues = "https://codebase.helmholtz.cloud/tud-rse-pojects-2025/group-3/issues"
