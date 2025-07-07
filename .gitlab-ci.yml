@@ -64,7 +64,7 @@ codestyle:
     - black . || true
     - isort . || true
   rules:
-    - if: $CI_COMMIT_BRANCH == "17-development_branch"
+    - if: $CI_COMMIT_BRANCH == "main"
 
 # Run basic unit tests using pytest
 unit-tests:
@@ -74,7 +74,7 @@ unit-tests:
     - pip install -r requirements.txt
     - pytest disease-analysis-cli/test/  
   rules:
-    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
 
 # adding test cases to run the code
 run-analysis:
@@ -89,7 +89,7 @@ run-analysis:
     paths:
       - disease-analysis-cli/results/
   rules:
-    - if: $CI_COMMIT_BRANCH == "17-development_branch"
+    - if: $CI_COMMIT_BRANCH == "main"
 
 streamlit-app:
   stage: run
@@ -102,7 +102,7 @@ streamlit-app:
     - sleep 15 && echo "Streamlit launched successfully"
     - pkill streamlit
   rules:
-    - if: '$CI_COMMIT_BRANCH == "17-development_branch"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
 
 
 # results analysis
@@ -117,7 +117,7 @@ deploy-results:
     paths:
       - public/
   rules:
-    - if: $CI_COMMIT_BRANCH == "17-development_branch"
+    - if: $CI_COMMIT_BRANCH == "main"
   dependencies:
     - run-analysis
 
