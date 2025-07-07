@@ -204,3 +204,14 @@ uv run black --check --diff src/
 Please see [LICENSE.md](LICENSE.md) for license information.
 
 ---
+
+---
+
+## Publications
+
+Please checkout our publications on:
+- PYPI Test: https://test.pypi.org/project/disease-analysis/0.1.0/ 
+- Zenodo Sandbox:  https://webapp.staging.swh.network/browse/directory/75ca6017151e538337ac9943e3d4629d97dfa7aa/?origin_url=https://doi.org/10.5072/zenodo.279782&path=group-3-main&release=1&snapshot=e25e968ff9e69ec296d63b05786137fd3195c78f 
+- DOI: <a href="https://handle.stage.datacite.org/10.5072/zenodo.279783"><img src="https://sandbox.zenodo.org/badge/DOI/10.5072/zenodo.279783.svg" alt="DOI"></a>
+
+---
