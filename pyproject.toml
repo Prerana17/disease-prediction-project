@@ -3,8 +3,8 @@
 name = "disease-analysis"
 version = "0.1.0"
 authors = [
-  { name="Chandratre Prerana", email="cprerana17@gmail.com" 
-    name="Sharma Anjali"
+  { name="Chandratre Prerana", email="cprerana17@gmail.com", 
+    name="Sharma Anjali",
     name="Roy Biswajyoti" },
 ]
 description = "Disease Symptom and Patient Profile Analysis"
