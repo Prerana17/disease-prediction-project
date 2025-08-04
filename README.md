@@ -193,10 +193,8 @@ uv run black --check --diff src/
 
 ## Contributors
 
-- Prerana Chandratre  
-- Biswajyoti Roy
-- Anjali Sharma
-
+- Prerana Chandratre
+  
 ---
 
 ## License
