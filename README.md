@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Disease Symptom and Patient Profile Analysis
 
-## Giving Credit
+## Giving Credit:
 
 This project was developed as part of the **Research Software Engineering (RSE)** course at TU Dresden for the [Continuous Integration/Continuous Deployment (CI/CD) Exercise](https://bildungsportal.sachsen.de/opal/auth/RepositoryEntry/48793518083).  
 It is based on the lectures and materials provided by **Guido Juckeland**, **Katja Lisa Linnemann**, and **Fredo Erxleben**.
@@ -13,7 +13,7 @@ It is based on the lectures and materials provided by **Guido Juckeland**, **Kat
 
 ---
 
-## Purpose of this Repository
+## Purpose of this Repository:
 
 This repository implements a full machine learning and data analysis pipeline to explore a dataset containing patient profiles and their reported disease symptoms. It provides:
 
